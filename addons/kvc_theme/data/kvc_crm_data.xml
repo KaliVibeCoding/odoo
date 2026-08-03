@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo noupdate="1">
+
+  <!-- ── Sequence for KVC Program codes ──────────────────────── -->
+  <record id="seq_kvc_program" model="ir.sequence">
+    <field name="name">KVC Program Code</field>
+    <field name="code">kvc.program</field>
+    <field name="prefix">KVC-</field>
+    <field name="padding">3</field>
+    <field name="company_id" eval="False"/>
+  </record>
+
+  <!-- ── Default Programs ─────────────────────────────────────── -->
+  <record id="program_fullstack_bootcamp" model="kvc.program">
+    <field name="name">Full-Stack Web Dev Bootcamp</field>
+    <field name="program_type">bootcamp</field>
+    <field name="funding_source">wioa_i</field>
+    <field name="naics_code">611420</field>
+    <field name="max_students">20</field>
+    <field name="duration_weeks">12</field>
+    <field name="price">0</field>
+    <field name="tech_stack">Next.js, TypeScript, Cloudflare Workers, Supabase, Stripe</field>
+    <field name="outcomes">Build and deploy 3 production-ready full-stack web applications. Proficient in Next.js 16, TypeScript, REST APIs, and cloud deployment via Cloudflare.</field>
+    <field name="prerequisites">Basic computer literacy. No prior coding experience required.</field>
+    <field name="description">&lt;p&gt;The KaliVibeCoding Full-Stack Bootcamp takes you from zero to deployed in 12 weeks. You'll build real projects using our exact production stack: Next.js, Cloudflare, and Supabase.&lt;/p&gt;</field>
+  </record>
+
+  <record id="program_ai_agents" model="kvc.program">
+    <field name="name">AI Agents Development Workshop</field>
+    <field name="program_type">workshop</field>
+    <field name="funding_source">private</field>
+    <field name="naics_code">541512</field>
+    <field name="max_students">15</field>
+    <field name="duration_weeks">4</field>
+    <field name="price">997</field>
+    <field name="tech_stack">Python, CrewAI, LangGraph, Cloudflare Agents SDK, MCP</field>
+    <field name="outcomes">Build production multi-agent systems using CrewAI and Cloudflare Agents SDK. Deploy to Durable Objects.</field>
+    <field name="prerequisites">Basic Python knowledge. Familiarity with APIs.</field>
+  </record>
+
+  <record id="program_government_it" model="kvc.program">
+    <field name="name">Government IT Workforce Development</field>
+    <field name="program_type">government</field>
+    <field name="funding_source">government_contract</field>
+    <field name="naics_code">611430</field>
+    <field name="max_students">30</field>
+    <field name="duration_weeks">16</field>
+    <field name="price">0</field>
+    <field name="tech_stack">CompTIA A+, Network+, Security+, Cloud fundamentals</field>
+    <field name="outcomes">Industry-recognized IT certifications. Job placement support. WIOA Title I / Perkins V compliant.</field>
+  </record>
+
+  <!-- ── Config params ─────────────────────────────────────────── -->
+  <record id="param_ghl_webhook_secret" model="ir.config_parameter">
+    <field name="key">kvc.ghl_webhook_secret</field>
+    <field name="value"/>
+  </record>
+
+  <record id="param_stripe_webhook_secret" model="ir.config_parameter">
+    <field name="key">kvc.stripe_webhook_secret</field>
+    <field name="value"/>
+  </record>
+
+  <record id="param_cf_account_id" model="ir.config_parameter">
+    <field name="key">kvc.cloudflare_account_id</field>
+    <field name="value">9a3c0d0f1bc8bb5c83574905b6e13680</field>
+  </record>
+
+</odoo>

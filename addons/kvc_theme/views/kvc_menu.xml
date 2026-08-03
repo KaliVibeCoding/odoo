@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+  <!-- ── KVC Top-level menu ──────────────────────────────────── -->
+  <menuitem
+    id="menu_kvc_root"
+    name="KVC CRM"
+    sequence="5"
+    web_icon="kvc_theme,static/description/icon.png"
+  />
+
+  <!-- ── Programs sub-menu ───────────────────────────────────── -->
+  <menuitem
+    id="menu_kvc_programs"
+    name="Programs"
+    parent="menu_kvc_root"
+    sequence="10"
+  />
+  <menuitem
+    id="menu_kvc_program_list"
+    name="All Programs"
+    parent="menu_kvc_programs"
+    action="action_kvc_program_list"
+    sequence="10"
+  />
+  <menuitem
+    id="menu_kvc_cohort_list"
+    name="Cohorts"
+    parent="menu_kvc_programs"
+    action="action_kvc_cohort_list"
+    sequence="20"
+  />
+
+  <!-- ── Students sub-menu ───────────────────────────────────── -->
+  <menuitem
+    id="menu_kvc_students"
+    name="Students"
+    parent="menu_kvc_root"
+    sequence="20"
+  />
+  <menuitem
+    id="menu_kvc_student_list"
+    name="All Students"
+    parent="menu_kvc_students"
+    action="action_kvc_student_list"
+    sequence="10"
+  />
+  <menuitem
+    id="menu_kvc_student_active"
+    name="Active Enrollments"
+    parent="menu_kvc_students"
+    action="action_kvc_student_active"
+    sequence="20"
+  />
+
+  <!-- ── Configuration sub-menu ─────────────────────────────── -->
+  <menuitem
+    id="menu_kvc_config"
+    name="Configuration"
+    parent="menu_kvc_root"
+    sequence="90"
+    groups="base.group_system"
+  />
+
+</odoo>
