@@ -1,0 +1,331 @@
+/**
+ * KVC Theme — Odoo 18 Backend SCSS Override
+ * KaliVibeCoding Neon-Noir Design System
+ *
+ * Pink  #FF69B4 | Blue  #87CEEB | Gold  #FFD700
+ * BG    #1E1E24 | Card  #25252D | Text  #F0F0F0
+ */
+
+@import url("https://fonts.googleapis.com/css2?family=Lobster&family=Montserrat:wght@400;500;600;700;800;900&family=Fira+Code:wght@400;500;600&display=swap");
+
+// ── KVC Variables ────────────────────────────────────────────
+$kvc-bg:        #1e1e24;
+$kvc-bg-card:   #25252d;
+$kvc-bg-hover:  #2e2e38;
+$kvc-text:      #f0f0f0;
+$kvc-muted:     #9ca3af;
+$kvc-pink:      #ff69b4;
+$kvc-pink-dark: #e0558f;
+$kvc-blue:      #87ceeb;
+$kvc-blue-dark: #5bb8e0;
+$kvc-gold:      #ffd700;
+$kvc-gold-dark: #e0b800;
+$kvc-border:    rgba(240, 240, 240, 0.10);
+$kvc-success:   #10b981;
+
+// ── Override Odoo 18 Bootstrap variables ─────────────────────
+:root {
+  --kvc-bg:        #{$kvc-bg};
+  --kvc-bg-card:   #{$kvc-bg-card};
+  --kvc-text:      #{$kvc-text};
+  --kvc-muted:     #{$kvc-muted};
+  --kvc-pink:      #{$kvc-pink};
+  --kvc-blue:      #{$kvc-blue};
+  --kvc-gold:      #{$kvc-gold};
+  --kvc-border:    #{$kvc-border};
+  --kvc-success:   #{$kvc-success};
+
+  // Odoo bootstrap var overrides
+  --o-main-color:         #{$kvc-pink};
+  --o-brand-odoo:         #{$kvc-pink};
+  --o-action-manager-warning-color: #{$kvc-gold};
+
+  // Bootstrap vars
+  --bs-primary:           #{$kvc-pink};
+  --bs-primary-rgb:       255, 105, 180;
+  --bs-secondary:         #{$kvc-blue};
+  --bs-body-bg:           #{$kvc-bg};
+  --bs-body-color:        #{$kvc-text};
+  --bs-border-color:      #{$kvc-border};
+  --bs-link-color:        #{$kvc-pink};
+  --bs-link-hover-color:  #{$kvc-pink-dark};
+  --bs-success-rgb:       16, 185, 129;
+  --bs-font-sans-serif:   "Montserrat", ui-sans-serif, system-ui, sans-serif;
+  --bs-font-monospace:    "Fira Code", ui-monospace, monospace;
+}
+
+// ── Body & layout ─────────────────────────────────────────────
+body, .o_web_client {
+  background: $kvc-bg !important;
+  color: $kvc-text !important;
+  font-family: "Montserrat", ui-sans-serif, system-ui, sans-serif !important;
+}
+
+// ── Top navigation bar ────────────────────────────────────────
+.o_navbar, .o_main_navbar {
+  background: #16161c !important;
+  border-bottom: 1px solid $kvc-border !important;
+  box-shadow: none !important;
+
+  // App name / home link
+  .o_menu_brand {
+    font-family: "Lobster", cursive !important;
+    color: $kvc-pink !important;
+    font-size: 20px !important;
+    text-shadow: 0 0 12px rgba(255, 105, 180, 0.4) !important;
+
+    &::before {
+      content: "KVC CRM · ";
+      opacity: 0.6;
+    }
+  }
+
+  // Nav links
+  .o_nav_entry, .o_menu_sections > li > a {
+    color: rgba(240, 240, 240, 0.75) !important;
+    &:hover { color: $kvc-pink !important; }
+    &.active { color: $kvc-pink !important; }
+  }
+
+  // User avatar area
+  .o_user_menu .o_dropdown_title {
+    color: $kvc-text !important;
+  }
+}
+
+// ── Left sidebar / App menu ────────────────────────────────────
+.o_action_manager, .o_home_menu, .o_menu_sections {
+  background: #16161c !important;
+}
+
+.o_home_menu .o_app {
+  .o_caption {
+    color: $kvc-muted !important;
+    font-family: "Montserrat", sans-serif !important;
+    font-size: 11px !important;
+  }
+  &:hover .o_caption { color: $kvc-pink !important; }
+  &:hover .o_app_icon { filter: drop-shadow(0 0 8px rgba(255, 105, 180, 0.4)); }
+}
+
+// ── Breadcrumb ─────────────────────────────────────────────────
+.o_breadcrumb, .breadcrumb {
+  .o_breadcrumb_back, .breadcrumb-item {
+    color: $kvc-muted !important;
+    font-family: "Montserrat", sans-serif !important;
+    font-size: 13px !important;
+  }
+  .breadcrumb-item.active { color: $kvc-text !important; }
+  .breadcrumb-item + .breadcrumb-item::before { color: $kvc-muted !important; }
+}
+
+// ── View headers ───────────────────────────────────────────────
+.o_control_panel {
+  background: $kvc-bg !important;
+  border-bottom: 1px solid $kvc-border !important;
+  padding: 12px 16px !important;
+}
+
+.o_view_title, h1.o_form_title {
+  font-family: "Lobster", cursive !important;
+  color: $kvc-text !important;
+  font-size: clamp(20px, 3vw, 28px) !important;
+}
+
+// ── List views ─────────────────────────────────────────────────
+.o_list_view {
+  background: $kvc-bg !important;
+
+  table {
+    border-collapse: collapse !important;
+  }
+
+  thead th {
+    background: $kvc-bg-card !important;
+    color: $kvc-pink !important;
+    font-family: "Montserrat", sans-serif !important;
+    font-weight: 700 !important;
+    font-size: 11px !important;
+    text-transform: uppercase !important;
+    letter-spacing: 0.08em !important;
+    border-bottom: 2px solid rgba(255, 105, 180, 0.2) !important;
+    padding: 10px 12px !important;
+  }
+
+  tbody tr {
+    border-bottom: 1px solid $kvc-border !important;
+    &:hover { background: $kvc-bg-hover !important; }
+    &.o_data_row_selected { background: rgba(255, 105, 180, 0.08) !important; }
+
+    td {
+      color: $kvc-text !important;
+      font-family: "Montserrat", sans-serif !important;
+      font-size: 13px !important;
+      padding: 10px 12px !important;
+    }
+  }
+}
+
+// ── Form views ─────────────────────────────────────────────────
+.o_form_view {
+  background: $kvc-bg !important;
+
+  .o_form_sheet {
+    background: $kvc-bg-card !important;
+    border: 1px solid $kvc-border !important;
+    border-radius: 16px !important;
+    box-shadow: 0 0 0 1px rgba(255, 105, 180, 0.08) !important;
+  }
+
+  .o_field_label {
+    color: $kvc-muted !important;
+    font-family: "Montserrat", sans-serif !important;
+    font-size: 11px !important;
+    font-weight: 700 !important;
+    text-transform: uppercase !important;
+    letter-spacing: 0.06em !important;
+  }
+
+  .o_field_widget input,
+  .o_field_widget textarea,
+  .o_field_widget select {
+    background: rgba(240, 240, 240, 0.05) !important;
+    border: 1px solid $kvc-border !important;
+    color: $kvc-text !important;
+    border-radius: 8px !important;
+    font-family: "Montserrat", sans-serif !important;
+
+    &:focus {
+      border-color: $kvc-pink !important;
+      box-shadow: 0 0 0 2px rgba(255, 105, 180, 0.2) !important;
+      outline: none !important;
+    }
+  }
+}
+
+// ── Kanban views ───────────────────────────────────────────────
+.o_kanban_view {
+  background: $kvc-bg !important;
+
+  .o_kanban_group_header {
+    background: transparent !important;
+    border-bottom: 2px solid $kvc-pink !important;
+
+    .o_column_title {
+      font-family: "Lobster", cursive !important;
+      color: $kvc-text !important;
+      font-size: 15px !important;
+    }
+  }
+
+  .o_kanban_card {
+    background: $kvc-bg-card !important;
+    border: 1px solid $kvc-border !important;
+    border-radius: 12px !important;
+    box-shadow: none !important;
+    transition: border-color 0.2s, box-shadow 0.2s !important;
+
+    &:hover {
+      border-color: rgba(255, 105, 180, 0.35) !important;
+      box-shadow: 0 0 0 1px rgba(255, 105, 180, 0.15), 0 4px 20px rgba(0, 0, 0, 0.3) !important;
+    }
+
+    .o_kanban_card_header .o_field_widget {
+      color: $kvc-text !important;
+      font-family: "Montserrat", sans-serif !important;
+    }
+  }
+}
+
+// ── CRM Pipeline (KVC Programs) ────────────────────────────────
+// Stage color-coding for KVC program pipeline
+.o_kanban_group[data-id="1"] .o_kanban_group_header { border-bottom-color: $kvc-pink !important; }
+.o_kanban_group[data-id="2"] .o_kanban_group_header { border-bottom-color: $kvc-gold !important; }
+.o_kanban_group[data-id="3"] .o_kanban_group_header { border-bottom-color: $kvc-blue !important; }
+.o_kanban_group[data-id="4"] .o_kanban_group_header { border-bottom-color: $kvc-success !important; }
+
+// ── Primary buttons ────────────────────────────────────────────
+.btn-primary, .o_btn_primary, [class*="btn-primary"] {
+  background: linear-gradient(135deg, $kvc-gold 0%, $kvc-gold-dark 100%) !important;
+  color: #000 !important;
+  font-weight: 700 !important;
+  font-family: "Montserrat", sans-serif !important;
+  border: none !important;
+  border-radius: 8px !important;
+  box-shadow: 0 0 0 1px rgba(255, 215, 0, 0.3), 0 0 16px rgba(255, 215, 0, 0.12) !important;
+
+  &:hover {
+    background: linear-gradient(135deg, #ffe033 0%, $kvc-gold 100%) !important;
+    color: #000 !important;
+    transform: translateY(-1px) !important;
+  }
+}
+
+// Secondary / outline buttons
+.btn-secondary, [class*="btn-secondary"] {
+  background: transparent !important;
+  color: $kvc-text !important;
+  border: 1px solid $kvc-border !important;
+  font-family: "Montserrat", sans-serif !important;
+  border-radius: 8px !important;
+
+  &:hover {
+    border-color: $kvc-pink !important;
+    color: $kvc-pink !important;
+    background: rgba(255, 105, 180, 0.05) !important;
+  }
+}
+
+// ── Status badges ──────────────────────────────────────────────
+.badge, .o_badge {
+  font-family: "Montserrat", sans-serif !important;
+  font-size: 10px !important;
+  font-weight: 700 !important;
+  border-radius: 999px !important;
+  text-transform: uppercase !important;
+  letter-spacing: 0.06em !important;
+}
+.badge.bg-success { background: rgba(16, 185, 129, 0.2) !important; color: $kvc-success !important; }
+.badge.bg-primary { background: rgba(255, 105, 180, 0.2) !important; color: $kvc-pink !important; }
+.badge.bg-warning { background: rgba(255, 215, 0, 0.2) !important; color: $kvc-gold !important; }
+.badge.bg-info    { background: rgba(135, 206, 235, 0.2) !important; color: $kvc-blue !important; }
+
+// ── Chatter / messaging ────────────────────────────────────────
+.o_Chatter, .o_thread {
+  background: $kvc-bg !important;
+  border-left: 1px solid $kvc-border !important;
+
+  .o_Message {
+    background: $kvc-bg-card !important;
+    border: 1px solid $kvc-border !important;
+    border-radius: 10px !important;
+    margin-bottom: 8px !important;
+
+    .o_Message_author {
+      color: $kvc-pink !important;
+      font-weight: 700 !important;
+    }
+
+    .o_Message_content {
+      color: $kvc-text !important;
+      font-family: "Montserrat", sans-serif !important;
+      font-size: 13px !important;
+    }
+  }
+}
+
+// ── Scrollbars ─────────────────────────────────────────────────
+::-webkit-scrollbar { width: 5px; height: 5px; }
+::-webkit-scrollbar-track { background: $kvc-bg; }
+::-webkit-scrollbar-thumb { background: rgba(255, 105, 180, 0.3); border-radius: 3px; }
+::-webkit-scrollbar-thumb:hover { background: rgba(255, 105, 180, 0.6); }
+::selection { background: rgba(255, 105, 180, 0.25); color: #fff; }
+
+// ── Code fields ────────────────────────────────────────────────
+.o_field_code, code, pre {
+  font-family: "Fira Code", ui-monospace, monospace !important;
+  background: rgba(0, 0, 0, 0.4) !important;
+  border: 1px solid rgba(135, 206, 235, 0.15) !important;
+  border-radius: 6px !important;
+  color: $kvc-blue !important;
+}
