@@ -1,0 +1,173 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+  <!-- ── KVC Homepage hero snippet ───────────────────────────── -->
+  <template id="kvc_website_home_hero" name="KVC Home Hero" customize_show="True"
+            inherit_id="website.homepage_id">
+    <xpath expr="//main" position="inside">
+      <section class="kvc-hero-section">
+        <div class="container">
+          <div class="kvc-hero-inner">
+            <img src="https://cdn.abacus.ai/images/134ce4b7-b0d1-4ba8-8655-3afd323fb646.png"
+                 alt="KaliVibeCoding Logo" class="kvc-hero-logo"/>
+            <div class="kvc-hero-text">
+              <h1 class="kvc-hero-heading">Code. Build. Ship.</h1>
+              <p class="kvc-hero-sub">
+                KaliVibeCoding trains the next generation of tech builders — from zero to deployed.
+              </p>
+              <div class="kvc-hero-actions">
+                <a href="/programs" class="kvc-btn-gold">View Programs</a>
+                <a href="/contact" class="kvc-btn-outline">Contact Us</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </xpath>
+  </template>
+
+  <!-- ── Programs listing page ───────────────────────────────── -->
+  <template id="kvc_website_programs" name="KVC Programs Page">
+    <t t-call="website.layout">
+      <div id="wrap" class="kvc-page">
+        <section class="kvc-page-header">
+          <div class="container">
+            <h1 class="kvc-heading">Training Programs</h1>
+            <p class="kvc-muted">WIOA-aligned. Industry-relevant. Job-ready.</p>
+          </div>
+        </section>
+        <section class="kvc-programs-grid-section">
+          <div class="container">
+            <div class="kvc-programs-grid">
+              <t t-foreach="programs" t-as="prog">
+                <div class="kvc-program-card">
+                  <div class="kvc-program-card-top">
+                    <span class="kvc-badge">
+                      <t t-esc="prog.program_type.replace('_',' ').title()"/>
+                    </span>
+                    <t t-if="prog.funding_source != 'private'">
+                      <span class="kvc-badge kvc-badge-gold">
+                        <t t-esc="prog.funding_source.replace('_',' ').upper()"/>
+                      </span>
+                    </t>
+                  </div>
+                  <h3 class="kvc-program-name"><t t-esc="prog.name"/></h3>
+                  <p class="kvc-muted kvc-program-stack">
+                    <t t-esc="prog.tech_stack or 'Full-stack Web Development'"/>
+                  </p>
+                  <div class="kvc-program-meta">
+                    <span>
+                      <t t-esc="prog.duration_weeks"/> weeks
+                    </span>
+                    <span class="kvc-program-price">
+                      <t t-esc="'${:,.0f}'.format(prog.price)"/>
+                    </span>
+                  </div>
+                  <a t-attf-href="/program/#{prog.id}" class="kvc-btn-gold kvc-btn-sm">
+                    Learn More
+                  </a>
+                </div>
+              </t>
+            </div>
+          </div>
+        </section>
+      </div>
+    </t>
+  </template>
+
+  <!-- ── Website CSS (injected via asset) ─────────────────────── -->
+  <template id="kvc_website_assets" inherit_id="website.assets_frontend" name="KVC Website CSS">
+    <xpath expr="." position="inside">
+      <style>
+        /* ── KVC Website Styles ──────────────────────────────── */
+        .kvc-hero-section {
+          background: linear-gradient(135deg, #1e1e24 0%, #25252d 100%);
+          padding: 80px 0; border-bottom: 1px solid rgba(240,240,240,0.08);
+        }
+        .kvc-hero-inner {
+          display: flex; align-items: center; gap: 40px;
+          flex-wrap: wrap;
+        }
+        .kvc-hero-logo {
+          width: 120px; height: 120px;
+          border-radius: 20px; object-fit: cover;
+          box-shadow: 0 0 40px rgba(255,105,180,0.25);
+        }
+        .kvc-hero-text { flex: 1; min-width: 280px; }
+        .kvc-hero-heading {
+          font-family: "Lobster", cursive;
+          font-size: clamp(40px, 7vw, 72px);
+          color: #f0f0f0; margin: 0 0 12px;
+          background: linear-gradient(135deg, #ff69b4, #87ceeb);
+          -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+          background-clip: text;
+        }
+        .kvc-hero-sub { color: #9ca3af; font-size: 18px; margin-bottom: 28px; }
+        .kvc-hero-actions { display: flex; gap: 12px; flex-wrap: wrap; }
+
+        .kvc-btn-gold {
+          display: inline-block; padding: 12px 28px;
+          background: linear-gradient(135deg, #ffd700, #e0b800);
+          color: #000; font-weight: 700; border-radius: 10px;
+          text-decoration: none; font-size: 15px;
+          transition: opacity 0.2s, transform 0.15s;
+        }
+        .kvc-btn-gold:hover { opacity: 0.9; transform: translateY(-2px); color: #000; text-decoration: none; }
+        .kvc-btn-sm { padding: 8px 18px; font-size: 13px; }
+        .kvc-btn-outline {
+          display: inline-block; padding: 12px 28px;
+          background: transparent; color: #f0f0f0;
+          border: 1px solid rgba(240,240,240,0.2); border-radius: 10px;
+          text-decoration: none; font-size: 15px;
+          transition: border-color 0.2s;
+        }
+        .kvc-btn-outline:hover { border-color: #ff69b4; color: #ff69b4; text-decoration: none; }
+
+        .kvc-page-header {
+          background: #25252d; padding: 48px 0;
+          border-bottom: 1px solid rgba(240,240,240,0.08);
+        }
+        .kvc-heading { font-family: "Lobster", cursive; color: #f0f0f0; }
+        .kvc-muted { color: #9ca3af; }
+
+        .kvc-programs-grid-section { padding: 48px 0; }
+        .kvc-programs-grid {
+          display: grid;
+          grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+          gap: 20px;
+        }
+        .kvc-program-card {
+          background: #25252d;
+          border: 1px solid rgba(240,240,240,0.1);
+          border-radius: 16px; padding: 24px;
+          transition: border-color 0.2s, box-shadow 0.2s;
+        }
+        .kvc-program-card:hover {
+          border-color: rgba(255,105,180,0.35);
+          box-shadow: 0 0 0 1px rgba(255,105,180,0.12), 0 8px 32px rgba(0,0,0,0.3);
+        }
+        .kvc-program-card-top { display: flex; gap: 8px; margin-bottom: 12px; flex-wrap: wrap; }
+        .kvc-program-name {
+          font-family: "Lobster", cursive; color: #f0f0f0;
+          font-size: 20px; margin: 0 0 6px;
+        }
+        .kvc-program-stack { font-size: 13px; margin-bottom: 16px; }
+        .kvc-program-meta {
+          display: flex; justify-content: space-between; align-items: center;
+          margin-bottom: 16px; font-size: 13px; color: #9ca3af;
+        }
+        .kvc-program-price { color: #ffd700; font-weight: 700; font-size: 16px; }
+
+        .kvc-badge {
+          display: inline-block; padding: 3px 10px;
+          border-radius: 999px; font-size: 11px; font-weight: 700;
+          text-transform: uppercase; letter-spacing: 0.06em;
+          background: rgba(255,105,180,0.15); color: #ff69b4;
+        }
+        .kvc-badge-gold { background: rgba(255,215,0,0.15); color: #ffd700; }
+        .kvc-page { background: #1e1e24; min-height: 100vh; }
+      </style>
+    </xpath>
+  </template>
+
+</odoo>
