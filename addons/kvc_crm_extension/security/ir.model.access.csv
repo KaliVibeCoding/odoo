@@ -1,0 +1,4 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_kvc_program,kvc.program,model_kvc_program,base.group_user,1,1,1,1
+access_kvc_cohort,kvc.cohort,model_kvc_cohort,base.group_user,1,1,1,1
+access_kvc_student,kvc.student,model_kvc_student,base.group_user,1,1,1,1

@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Top-level Menu -->
+    <menuitem id="menu_kvc_root"
+              name="KaliVibe Workforce CRM"
+              web_icon="kvc_crm_extension,static/description/icon.png"
+              sequence="10"/>
+
+    <menuitem id="menu_kvc_students"
+              name="Student Roster"
+              parent="menu_kvc_root"
+              action="action_kvc_student"
+              sequence="10"/>
+
+    <menuitem id="menu_kvc_cohorts"
+              name="Cohorts"
+              parent="menu_kvc_root"
+              action="action_kvc_cohort"
+              sequence="20"/>
+
+    <menuitem id="menu_kvc_programs"
+              name="Programs &amp; Curriculums"
+              parent="menu_kvc_root"
+              action="action_kvc_program"
+              sequence="30"/>
+</odoo>
