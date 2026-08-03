@@ -1,0 +1,205 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+  <!-- ── Student Dashboard ───────────────────────────────────── -->
+  <template id="portal_student_dashboard" name="KVC Student Dashboard">
+    <t t-call="portal.portal_layout">
+      <t t-set="breadcrumbs_searchbar" t-value="True"/>
+
+      <t t-call="portal.portal_searchbar">
+        <t t-set="title">My Programs</t>
+      </t>
+
+      <div class="o_portal_wrap kvc-portal">
+
+        <!-- Hero banner -->
+        <div class="kvc-portal-hero">
+          <img src="https://cdn.abacus.ai/images/134ce4b7-b0d1-4ba8-8655-3afd323fb646.png"
+               alt="KaliVibeCoding" class="kvc-portal-logo"/>
+          <div>
+            <h1 class="kvc-heading">Welcome back, <t t-esc="request.env.user.name"/>.</h1>
+            <p class="kvc-muted">Track your progress. Build your future.</p>
+          </div>
+        </div>
+
+        <!-- Enrollment cards -->
+        <div class="kvc-portal-grid">
+          <t t-if="enrollments">
+            <t t-foreach="enrollments" t-as="enroll">
+              <a t-attf-href="/kvc/portal/enrollment/#{enroll.id}" class="kvc-enroll-card">
+                <div class="kvc-enroll-card-header">
+                  <span class="kvc-badge" t-attf-class="kvc-badge-#{enroll.state}">
+                    <t t-esc="enroll.state.replace('_',' ').title()"/>
+                  </span>
+                </div>
+                <h3 class="kvc-enroll-program">
+                  <t t-esc="enroll.program_id.name"/>
+                </h3>
+                <p class="kvc-enroll-cohort kvc-muted">
+                  <t t-esc="enroll.cohort_id.name"/>
+                </p>
+                <!-- Progress bar -->
+                <div class="kvc-progress-wrap">
+                  <div class="kvc-progress-bar"
+                       t-attf-style="width: #{enroll.progress_pct}%"/>
+                </div>
+                <p class="kvc-muted" style="font-size:12px; margin-top:4px;">
+                  <t t-esc="'{:.0f}'.format(enroll.progress_pct)"/>% complete
+                </p>
+                <t t-if="enroll.certificate_issued">
+                  <span class="kvc-badge kvc-badge-success">🎓 Certificate Issued</span>
+                </t>
+              </a>
+            </t>
+          </t>
+          <t t-else="">
+            <div class="kvc-empty-state">
+              <p>No active enrollments yet.</p>
+              <a href="/programs" class="kvc-btn-primary">Browse Programs</a>
+            </div>
+          </t>
+        </div>
+
+      </div>
+    </t>
+  </template>
+
+  <!-- ── Enrollment Detail ────────────────────────────────────── -->
+  <template id="portal_enrollment_detail" name="KVC Enrollment Detail">
+    <t t-call="portal.portal_layout">
+      <t t-call="portal.portal_record_layout">
+        <t t-set="card_header">
+          <div class="d-flex align-items-center justify-content-between">
+            <h5 class="mb-0 kvc-heading">
+              <t t-esc="enrollment.program_id.name"/>
+            </h5>
+            <span class="kvc-badge" t-attf-class="kvc-badge-#{enrollment.state}">
+              <t t-esc="enrollment.state.replace('_',' ').title()"/>
+            </span>
+          </div>
+        </t>
+        <t t-set="card_body">
+          <div class="row">
+            <div class="col-md-6">
+              <p><strong>Cohort:</strong> <t t-esc="enrollment.cohort_id.name"/></p>
+              <p><strong>Enrolled:</strong> <t t-esc="enrollment.enrollment_date"/></p>
+              <t t-if="enrollment.completion_date">
+                <p><strong>Completed:</strong> <t t-esc="enrollment.completion_date"/></p>
+              </t>
+              <p><strong>Payment:</strong>
+                <span class="ms-1 kvc-badge">
+                  <t t-esc="enrollment.payment_status.replace('_',' ').title()"/>
+                </span>
+              </p>
+            </div>
+            <div class="col-md-6">
+              <p><strong>Progress</strong></p>
+              <div class="kvc-progress-wrap" style="margin-bottom:8px;">
+                <div class="kvc-progress-bar"
+                     t-attf-style="width: #{enrollment.progress_pct}%"/>
+              </div>
+              <p class="kvc-muted">
+                <t t-esc="'{:.0f}'.format(enrollment.progress_pct)"/>%
+              </p>
+              <t t-if="enrollment.certificate_issued">
+                <div class="kvc-cert-badge">
+                  🎓 Certificate Issued on <t t-esc="enrollment.certificate_date"/>
+                </div>
+              </t>
+            </div>
+          </div>
+
+          <!-- Tech stack -->
+          <t t-if="enrollment.program_id.tech_stack">
+            <hr/>
+            <p><strong>Tech Stack</strong></p>
+            <div class="d-flex flex-wrap gap-2">
+              <t t-foreach="enrollment.program_id.tech_stack.split(',')" t-as="tech">
+                <span class="kvc-badge kvc-badge-blue">
+                  <t t-esc="tech.strip()"/>
+                </span>
+              </t>
+            </div>
+          </t>
+
+          <!-- Meeting link -->
+          <t t-if="enrollment.cohort_id.meeting_link">
+            <hr/>
+            <a t-att-href="enrollment.cohort_id.meeting_link"
+               target="_blank" class="kvc-btn-primary">
+              Join Class Meeting
+            </a>
+          </t>
+        </t>
+      </t>
+    </t>
+  </template>
+
+  <!-- ── Shared portal CSS injected via asset ─────────────────── -->
+  <template id="kvc_portal_assets" inherit_id="web.assets_frontend" name="KVC Portal CSS">
+    <xpath expr="." position="inside">
+      <style>
+        .kvc-portal { padding: 24px 16px; }
+        .kvc-portal-hero {
+          display: flex; align-items: center; gap: 16px;
+          padding: 24px; background: #25252d;
+          border-radius: 16px; margin-bottom: 24px;
+          border: 1px solid rgba(240,240,240,0.1);
+        }
+        .kvc-portal-logo { width: 56px; height: 56px; border-radius: 12px; object-fit: cover; }
+        .kvc-heading { font-family: "Lobster", cursive; color: #f0f0f0; margin: 0; }
+        .kvc-muted { color: #9ca3af; margin: 0; }
+        .kvc-portal-grid {
+          display: grid;
+          grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+          gap: 16px;
+        }
+        .kvc-enroll-card {
+          display: block; text-decoration: none;
+          background: #25252d; border: 1px solid rgba(240,240,240,0.1);
+          border-radius: 14px; padding: 20px;
+          transition: border-color 0.2s, box-shadow 0.2s;
+          color: #f0f0f0;
+        }
+        .kvc-enroll-card:hover {
+          border-color: rgba(255,105,180,0.4);
+          box-shadow: 0 0 0 1px rgba(255,105,180,0.15), 0 4px 20px rgba(0,0,0,0.3);
+          color: #f0f0f0; text-decoration: none;
+        }
+        .kvc-enroll-program { font-family: "Lobster", cursive; font-size: 18px; margin: 8px 0 4px; }
+        .kvc-enroll-cohort { font-size: 13px; margin-bottom: 12px; }
+        .kvc-progress-wrap { background: rgba(240,240,240,0.1); border-radius: 999px; height: 6px; overflow: hidden; }
+        .kvc-progress-bar { background: linear-gradient(90deg, #ff69b4, #87ceeb); height: 100%; border-radius: 999px; transition: width 0.4s; }
+        .kvc-badge {
+          display: inline-block; padding: 3px 10px;
+          border-radius: 999px; font-size: 11px; font-weight: 700;
+          text-transform: uppercase; letter-spacing: 0.06em;
+          background: rgba(255,105,180,0.15); color: #ff69b4;
+        }
+        .kvc-badge-active, .kvc-badge-enrolled { background: rgba(16,185,129,0.15); color: #10b981; }
+        .kvc-badge-completed, .kvc-badge-success { background: rgba(16,185,129,0.2); color: #10b981; }
+        .kvc-badge-dropped, .kvc-badge-cancelled { background: rgba(239,68,68,0.15); color: #ef4444; }
+        .kvc-badge-blue { background: rgba(135,206,235,0.15); color: #87ceeb; }
+        .kvc-btn-primary {
+          display: inline-block; padding: 10px 20px;
+          background: linear-gradient(135deg, #ffd700, #e0b800);
+          color: #000; font-weight: 700; border-radius: 8px;
+          text-decoration: none; font-size: 14px; margin-top: 8px;
+        }
+        .kvc-cert-badge {
+          background: rgba(16,185,129,0.12); border: 1px solid rgba(16,185,129,0.3);
+          color: #10b981; padding: 8px 14px; border-radius: 8px;
+          font-size: 13px; margin-top: 8px;
+        }
+        .kvc-empty-state {
+          text-align: center; padding: 48px 24px;
+          background: #25252d; border-radius: 14px;
+          border: 1px solid rgba(240,240,240,0.08);
+          grid-column: 1/-1;
+        }
+        .kvc-empty-state p { color: #9ca3af; margin-bottom: 16px; }
+      </style>
+    </xpath>
+  </template>
+
+</odoo>
